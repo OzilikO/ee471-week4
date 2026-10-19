@@ -18,3 +18,18 @@
 2. Ensured payload format exactly matches Flask expectations (`{"num1": num1, "num2": num2, "operator": operator}`).
 3. Handled API error responses (HTTP 400 with `{"error": "<message>"}`) to display messages such as `"Cannot divide by zero."` directly on the screen.
 4. Adjusted `.display.error-text` in `style.css` so error messages fit without truncation.
+
+## Section 2 - Part 2: Extend the Classes with CRUD Methods
+
+### Prompt:
+> Update library_custom_classes.py and library_main.py in the Week4 folder according to these exact CRUD requirements:
+> 1. Custom Exceptions: ItemNotFoundError, ItemStateError
+> 2. Auto-Incrementing IDs: assigned by add_item() (1, 2, 3, ...) and never reused
+> 3. Dictionary Serialization: to_dict() in MediaItem, Book (page_count), DVD (duration)
+> 4. Exception-Based State Transitions: checkout() raises ItemStateError if already out; return_item() raises ItemStateError if not out; DVD.checkout() returns reminder string without printing
+> 5. New Collection Methods: get_item(), list_items(available=None, item_type=None), update_item(item_id, **fields), remove_item(item_id)
+> 6. Test Suite: in library_main.py demonstrate every method and catch each exception.
+
+### Implementation Details:
+- `library_custom_classes.py`: Complete OOP domain model with custom exceptions, CRUD methods, strict validation on editable fields, sequential non-reusable IDs, and dictionary serialization.
+- `library_main.py`: Test suite verifying every operation and catching `ItemNotFoundError`, `ItemStateError`, and `ValueError`.
