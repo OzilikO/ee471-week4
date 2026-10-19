@@ -33,3 +33,26 @@
 ### Implementation Details:
 - `library_custom_classes.py`: Complete OOP domain model with custom exceptions, CRUD methods, strict validation on editable fields, sequential non-reusable IDs, and dictionary serialization.
 - `library_main.py`: Test suite verifying every operation and catching `ItemNotFoundError`, `ItemStateError`, and `ValueError`.
+
+## Section 2 - Part 3: Flask REST API
+
+### Prompt:
+> Create library_app.py in the Week4 directory to expose our LibraryCollection from library_custom_classes.py as a REST API.
+> Requirements:
+> - Collection Instance & Seeding: Instantiate one LibraryCollection in library_app.py and seed it with at least 3 items (mixed Books and DVDs).
+> - Endpoints & HTTP Status Codes:
+>   - POST /api/items: Create a Book or DVD (201 Created / 400 Bad Request)
+>   - GET /api/items: List items, support filters ?available=true/false and ?type=book/dvd (200 OK / 400 Bad Request)
+>   - GET /api/items/<id>: Retrieve single item (200 OK / 404 Not Found)
+>   - PUT /api/items/<id>: Replace all editable fields (200 OK / 400 / 404)
+>   - PATCH /api/items/<id>: Update partial editable fields (200 OK / 400 / 404)
+>   - DELETE /api/items/<id>: Remove an item (204 No Content / 404 / 409 if checked out)
+>   - POST /api/items/<id>/checkout: Checkout item (200 OK / 404 / 409 already out)
+>   - POST /api/items/<id>/return: Return item (200 OK / 404 / 409 not checked out)
+> - Error Response Format: Every error must return {"error": "<message>"} with the matching HTTP status code.
+> - Dependencies: Create requirements.txt containing flask.
+
+### Implementation Details:
+- `library_app.py`: Created the Flask application with all 8 REST endpoints, input validation, clean exception translation to HTTP error codes (400, 404, 409), and 4 seeded items (2 Books, 2 DVDs).
+- `requirements.txt`: Created with `flask>=3.0.0`.
+- Verified all endpoints using automated test client.
