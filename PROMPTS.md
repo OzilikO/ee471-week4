@@ -1,3 +1,7 @@
+####Kuanıcı olarak benim düzeltiğim şeyler:
+AI app.py ile library_app.py dosyasını karıştırdı ve direk app.py dosyasını(calculator) library uygulaması ve kodu ile değiştirdi. iyi ki yakaladım yoksa sonra video çekerken calculatora erişimde sıkıntı yaşayabilirdim. Yine inatla baika porta 5001 açtığı halde 5000 müş gibi davranmaya çalıştı. Ayrıca MCP anti gravity remote olarak desteklemiyormuş sadece professional dev sürümü ile figma'dan local MCP çalışıyormuş. 
+
+
 # Prompts Log - EE471 Week 4
 
 ## Section 1 - Part 2: Calculator Frontend & Backend Preparation
@@ -56,3 +60,26 @@
 - `library_app.py`: Created the Flask application with all 8 REST endpoints, input validation, clean exception translation to HTTP error codes (400, 404, 409), and 4 seeded items (2 Books, 2 DVDs).
 - `requirements.txt`: Created with `flask>=3.0.0`.
 - Verified all endpoints using automated test client.
+
+
+## Section 2 - Part 4: Vibe-Code the Frontend and Connect It
+
+### Prompt:
+> lets move to part 4 Vibe-code the frontend and connect it.( be sure not to mess up the calculator app! the file says "flask must serve index.html, style.css, script.js." but you can change the files names to like etc library_index.html in order to be sure that we dont mess up our calculator!)
+> read the week4 assignment pdf and the section with part 4. Here are the figma frame links.Fetch layout and styling directly from the Figma links below using MCP.
+> Main Dashboard: https://www.figma.com/design/nB3dRsvIhceJ4pPq9PpUUN/Checkout_UI?node-id=3-1864&t=wRGIK2PgN6Q9VBBl-4
+> Add Item Modal: https://www.figma.com/design/nB3dRsvIhceJ4pPq9PpUUN/Checkout_UI?node-id=3-1380&t=wRGIK2PgN6Q9VBBl-4
+> Edit Item Modal: https://www.figma.com/design/nB3dRsvIhceJ4pPq9PpUUN/Checkout_UI?node-id=3-1466&t=wRGIK2PgN6Q9VBBl-4
+> Empty State: https://www.figma.com/design/nB3dRsvIhceJ4pPq9PpUUN/Checkout_UI?node-id=3-1577&t=wRGIK2PgN6Q9VBBl-4
+> Item Card Component: https://www.figma.com/design/nB3dRsvIhceJ4pPq9PpUUN/Checkout_UI?node-id=3-1688&t=wRGIK2PgN6Q9VBBl-4
+
+### Generated & Updated Files:
+- `library_index.html`: Complete single-page app layout with toolbar, segmented controls (All/Books/DVDs), toggle switch (Available Only), alert error banner, items card grid, empty state, and Add/Edit modal dialog.
+- `library_style.css`: Clean pixel-perfect styling matching Figma color palette (`#f4f6f8` background, `#303469` primary navy, `#444d5b` modal background, badge pills, responsive cards grid).
+- `library_script.js`: Complete asynchronous client communicating with all 8 REST endpoints, rendering dynamic card variants (Available / Checked Out), handling modal transitions, and displaying API error messages (especially HTTP 409).
+- `library_app.py`: Configured to serve `library_index.html`, `library_style.css`, and `library_script.js` directly on route `/`.
+
+### Corrections & Refinements (Required by Rubric):
+1. **Isolated Frontend Assets from Calculator**: Prevented overwriting the calculator's `index.html`, `style.css`, and `script.js` by explicitly scoping library frontend files as `library_index.html`, `library_style.css`, and `library_script.js`.
+2. **HTTP 409 Conflict Error Display**: Ensured that when attempting to delete a checked-out item (or performing an invalid checkout/return), the client catches the HTTP 409 response and renders the error message directly into the top red alert banner instead of silently failing or using an alert() popup.
+3. **Dynamic Form Switching & Field Immutability**: Configured the modal form to dynamically toggle between "Page Count" and "Duration (mins)" based on media type, and disabled the type selector during Edit mode to adhere to model immutability rules.

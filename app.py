@@ -17,10 +17,10 @@ def calculate():
         num2 = float(data.get('num2'))
         operator = data.get('operator')
     except (ValueError, TypeError):
-        # Returns an error message for invalid input[cite: 4]
+        # Returns an error message for invalid input
         return jsonify({"error": "Invalid input. Please provide numbers."}), 400
 
-    # Performing calculations manually to avoid using eval()[cite: 4]
+    # Performing calculations manually to avoid using eval()
     if operator == '+':
         result = num1 + num2
     elif operator == '-':
@@ -29,7 +29,7 @@ def calculate():
         result = num1 * num2
     elif operator == '÷' or operator == '/':
         if num2 == 0:
-            # Returns an error message for division by zero[cite: 4]
+            # Returns an error message for division by zero
             return jsonify({"error": "Cannot divide by zero."}), 400
         result = num1 / num2
     else:
@@ -38,5 +38,6 @@ def calculate():
     return jsonify({"result": result})
 
 if __name__ == '__main__':
-    # Runs the server on localhost[cite: 4]
+    # Runs the server on localhost
+    app.run(debug=True, port=5000)
     app.run(debug=True, port=5000)

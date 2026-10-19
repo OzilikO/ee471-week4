@@ -9,7 +9,7 @@ Adheres strictly to the HTTP status code and response schema requirements:
 """
 
 from typing import Any, Dict
-from flask import Flask, jsonify, request
+from flask import Flask, jsonify, render_template, request
 from library_custom_classes import (
     Book,
     DVD,
@@ -19,7 +19,13 @@ from library_custom_classes import (
     MediaItem,
 )
 
-app = Flask(__name__)
+app = Flask(__name__, template_folder='.', static_folder='.', static_url_path='')
+
+@app.route('/')
+def home():
+    """Serve the library management frontend."""
+    return render_template('library_index.html')
+
 
 # ---------------------------------------------------------------------------
 # Collection Instance & Initial Seeding (At least 3 mixed items)

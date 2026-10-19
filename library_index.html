@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Library Management System</title>
+  <link rel="stylesheet" href="library_style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="app-container">
+    <!-- Header -->
+    <header class="app-header">
+      <h1 class="app-title">Library Management System</h1>
+      <p class="app-subtitle">Manage your books and DVDs in one place.</p>
+    </header>
+
+    <!-- Toolbar: Filters, Toggle, and Add Button -->
+    <section class="toolbar">
+      <div class="toolbar-left">
+        <label class="toggle-switch-container">
+          <input type="checkbox" id="availableToggle" class="toggle-checkbox">
+          <span class="toggle-slider"></span>
+          <span class="toggle-label">Available Only</span>
+        </label>
+      </div>
+
+      <div class="toolbar-center">
+        <div class="segmented-control" role="tablist">
+          <button type="button" class="segment-btn active" data-type="all">All</button>
+          <button type="button" class="segment-btn" data-type="book">Books</button>
+          <button type="button" class="segment-btn" data-type="dvd">DVDs</button>
+        </div>
+      </div>
+
+      <div class="toolbar-right">
+        <button type="button" id="openAddModalBtn" class="btn btn-primary">
+          <span class="plus-icon">+</span> Add New Item
+        </button>
+      </div>
+    </section>
+
+    <!-- Alert / Error Banner -->
+    <aside id="alertBanner" class="alert-banner" style="display: none;" role="alert">
+      <div class="alert-left">
+        <span class="alert-icon">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"></circle>
+            <line x1="12" y1="8" x2="12" y2="12"></line>
+            <line x1="12" y1="16" x2="12.01" y2="16"></line>
+          </svg>
+        </span>
+        <span id="alertMessage" class="alert-message">Cannot delete a checked-out item</span>
+      </div>
+      <button type="button" id="dismissAlertBtn" class="alert-dismiss" aria-label="Dismiss alert">&times;</button>
+    </aside>
+
+    <!-- Items Section Header -->
+    <div class="items-header">
+      <h2 class="items-title">Library items</h2>
+      <span id="itemsCount" class="items-count">0 items</span>
+    </div>
+
+    <!-- Items Grid Container -->
+    <main id="itemsGrid" class="items-grid">
+      <!-- Item cards will be rendered dynamically by JavaScript -->
+    </main>
+
+    <!-- Empty State -->
+    <section id="emptyState" class="empty-state" style="display: none;">
+      <div class="empty-state-card">
+        <div class="empty-icon-circle">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#6366f1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
+            <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
+          </svg>
+        </div>
+        <h3 class="empty-title">No items found in the library.</h3>
+        <p class="empty-subtitle">Add your first book or DVD to get started.</p>
+        <button type="button" id="emptyAddBtn" class="btn btn-primary">
+          <span class="plus-icon">+</span> Add New Item
+        </button>
+      </div>
+    </section>
+  </div>
+
+  <!-- Add / Edit Modal -->
+  <div id="itemModal" class="modal-backdrop" style="display: none;">
+    <div class="modal-dialog" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+      <div class="modal-header">
+        <h3 id="modalTitle" class="modal-title">Add New Item</h3>
+        <button type="button" id="closeModalBtn" class="modal-close" aria-label="Close modal">&times;</button>
+      </div>
+      
+      <form id="itemForm" class="modal-form" novalidate>
+        <input type="hidden" id="modalItemId">
+
+        <div class="form-group">
+          <label for="itemTitleInput" class="form-label">Title</label>
+          <input type="text" id="itemTitleInput" class="form-input" placeholder="e.g. The Catcher in the Rye" required>
+        </div>
+
+        <div class="form-group">
+          <label for="itemAuthorInput" class="form-label">Author / Director</label>
+          <input type="text" id="itemAuthorInput" class="form-input" placeholder="e.g. J. D. Salinger" required>
+        </div>
+
+        <div class="form-row">
+          <div class="form-col">
+            <label for="itemTypeSelect" class="form-label">Media Type</label>
+            <div class="select-wrapper">
+              <select id="itemTypeSelect" class="form-select">
+                <option value="book">Book</option>
+                <option value="dvd">DVD</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-col" id="dynamicFieldCol">
+            <label for="itemDynamicInput" id="dynamicFieldLabel" class="form-label">Page Count</label>
+            <input type="number" id="itemDynamicInput" class="form-input" min="1" placeholder="220" required>
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" id="cancelModalBtn" class="btn btn-cancel">Cancel</button>
+          <button type="submit" id="saveItemBtn" class="btn btn-modal-save">Save Item</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script src="library_script.js"></script>
+</body>
+</html>
+
