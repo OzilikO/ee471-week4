@@ -1,5 +1,5 @@
 ####Kuanıcı olarak benim düzeltiğim şeyler:
-AI app.py ile library_app.py dosyasını karıştırdı ve direk app.py dosyasını(calculator) library uygulaması ve kodu ile değiştirdi. iyi ki yakaladım yoksa sonra video çekerken calculatora erişimde sıkıntı yaşayabilirdim. Yine inatla baika porta 5001 açtığı halde 5000 müş gibi davranmaya çalıştı. Ayrıca MCP anti gravity remote olarak desteklemiyormuş sadece professional dev sürümü ile figma'dan local MCP çalışıyormuş. 
+AI app.py ile library_app.py dosyasını karıştırdı ve direk app.py dosyasını(calculator) library uygulaması ve kodu ile değiştirdi. iyi ki yakaladım yoksa sonra video çekerken calculatora erişimde sıkıntı yaşayabilirdim. Yine inatla baika porta 5001 açtığı halde 5000 müş gibi davranmaya çalıştı. Ayrıca MCP anti gravity remote olarak desteklemiyormuş sadece professional dev sürümü ile figma'dan local MCP çalışıyormuş. Ayrıca calculator uygulaması için custom_classes dan operatinları çekmek yerine direk app.py içinde tekrar tanımlamış.
 
 
 # Prompts Log - EE471 Week 4
