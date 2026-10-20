@@ -1,14 +1,14 @@
 from flask import Flask, request, jsonify, render_template
+from custom_classes import Calculator  # Import OOP class
 
-# Configuring Flask to look in the current folder for your HTML, CSS, and JS
-app = Flask(__name__, template_folder='.', static_folder='.', static_url_path='')
+app = Flask(__name__, template_folder='.', static_folder='.', static_url_path='') 
+# Flask bir web sunucusudur. Bu kod parçası sunucuyu başlatır ve index.html gibi dosyaların nerede olduğunu sunucuya öğretir.
 
-@app.route('/')
+@app.route('/') # http: //127.0.0.1:5000 adresine girdiğinde karşılarına çıkan ilk arayüzü gösterir.
 def home():
-    # This serves the web page you vibe-coded in Step 1
     return render_template('index.html')
 
-@app.route('/api/calculate', methods=['POST'])
+@app.route('/api/calculate', methods=['POST']) #The endpoint handles all computation requests coming from the frontend
 def calculate():
     data = request.get_json()
     
@@ -17,27 +17,26 @@ def calculate():
         num2 = float(data.get('num2'))
         operator = data.get('operator')
     except (ValueError, TypeError):
-        # Returns an error message for invalid input
         return jsonify({"error": "Invalid input. Please provide numbers."}), 400
 
-    # Performing calculations manually to avoid using eval()
-    if operator == '+':
-        result = num1 + num2
-    elif operator == '-':
-        result = num1 - num2
-    elif operator == 'x' or operator == '*':
-        result = num1 * num2
-    elif operator == '÷' or operator == '/':
-        if num2 == 0:
-            # Returns an error message for division by zero
-            return jsonify({"error": "Cannot divide by zero."}), 400
-        result = num1 / num2
-    else:
-        return jsonify({"error": "Unknown operator."}), 400
+    calc = Calculator()
+    calc.add(num1)  # Set initial value to num1
+
+    try:
+        if operator == '+':
+            result = calc.add(num2)
+        elif operator == '-':
+            result = calc.sub(num2)
+        elif operator in ['x', '*']:
+            result = calc.multiply(num2)
+        elif operator in ['÷', '/']:
+            result = calc.divide(num2)
+        else:
+            return jsonify({"error": "Unknown operator."}), 400
+    except ValueError as e:
+        return jsonify({"error": str(e)}), 400
 
     return jsonify({"result": result})
 
 if __name__ == '__main__':
-    # Runs the server on localhost
-    app.run(debug=True, port=5000)
-    app.run(debug=True, port=5000)
+    app.run(debug=True, port=5000) # web sunucusunu bilgisayarında 5000 numaralı portta aktif olarak çalıştırır
